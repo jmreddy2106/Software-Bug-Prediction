@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block head %}
+        <style>
+    #res1 div {
+      display: none;
+    }
+    #res1 div:target {
+      display: block;
+    }
+
+    </style>
+        <style>
+                .column1 {
+                  float: left;
+                  width: 20%;
+                    heght: 100%;
+
+                }
+                .column2 {
+                  width: 70%;
+                    margin-left: 20%;
+
+                }
+                td{
+                    padding-right: 30px;
+                    padding-left: 10px;
+                }
+
+</style>
+{%  endblock %}
+{% block body %}
+<header>
+    <h1 style="text-align:center; color: red"> Bug Prediction </h1>
+</header>
+
+<article>
+    <div style="text-align:center;">
+    <form style="text-align:center;" action="/index"  method="post">
+        <table align="center" cellpadding="3px">
+            <tr>
+            <td> <label for="url">Url:</label> </td>
+            <td> <input type="url" id="url" name="url" required> </td>
+            </tr>
+            <tr>
+            <td> <label for="name">File Name</label> </td>
+            <td> <input type="text" id="name" name="name" required> </td>
+            </tr>
+            <tr>
+            <td> <label for="clf">Classifier</label> </td>
+            <td> <select name="clf" id="clf" required>
+                <option value=1>Adaboost</option>
+                <option value=2>Logistic Regression</option>
+                <option value=3>Random Forest Classifier</option>
+                </select>
+            </td>
+            </tr>
+            <tr>
+            <td> <label for="label">Label</label> </td>
+            <td> <select name="label" id="label" required>
+                 <option value="CommitBug">CommitBug</option>
+                 <option value="BugLabelLevel">BugLabelLevel</option>
+                 <option value="AddRemoved">AddRemoved</option>
+                 <option value="CommitAddRemoved">CommitAddRemoved</option>
+                </select>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2" align="center"><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+    </div>
+<hr>
+    <div class="row" >
+        <div class="column1">
+            <ul id="clf-list">
+                <li><a href="#adaboostclf">Adaboost</a></li>
+                <li><a href="#lrclf">Logistic Regression</a></li>
+                <li><a href="#rfclf">Random Forest Classifier</a></li>
+                <li><a href="#user-res">Result</a></li>
+            </ul>
+        </div>
+        <div class="column2" id="res1">
+            <div id="adaboostclf" style="text-align:center;">
+{#                {% if data %}#}
+{#                    <table align="center" border="1px">#}
+{#                    {% for idx,value in data.items() %}#}
+{#                        <tr>#}
+{#                            <td>{{ idx }}</td>#}
+{#                            {% if idx == "Classification_report" %}#}
+{#                                <td>#}
+{#                                {% for idx1 in value %}#}
+{##}
+{#                                    <table>#}
+{#                                        <tr>#}
+{#                                        {{ idx1 }}#}
+{#                                        </tr>#}
+{#                                    </table>#}
+{##}
+{#                                {% endfor %}#}
+{#                                </td>#}
+{#                            {% else %}#}
+{#                               <td> {{ value }} </td>#}
+{#                            {% endif %}#}
+{#                         </tr>#}
+{#                    {% endfor %}#}
+{#                    </table>#}
+{#                {% endif %}#}
+{#                {%  if i %}#}
+
+                <img src='{{ "static\\Adaboost.jpg"}}' alt="text" width="100%" height="100%"/>
+            </div >
+            <div id="lrclf" style="text-align:center;">
+                <img src='{{ "static\\Logistic Regression.jpg"}}' alt="text" width="100%" height="100%"/>
+            </div>
+            <div id="rfclf" style="text-align:center;">
+                <img src='{{ "static\\Random Forest.jpg"}}' alt="text" width="100%" height="100%"/>
+            </div>
+            <div style="text-align:center; width: 90%; " id="user-res" >
+                {% if le>0 %}
+                    <table align="center">
+                    {% for i in range(le) %}
+                        <tr>
+                        <td>
+                        {{ filename[i] }}
+                        </td>
+                        <td>
+                        {% if res[i] == 0 %}
+                            Bug
+                        {% elif res[i] == 1 %}
+                            Not Bug
+                        {% endif %}
+                        </td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}
