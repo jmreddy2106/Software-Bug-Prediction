@@ -1,0 +1,5 @@
+PyDriller==1.15.4
+sklear
+flask
+pandas
+matplotlib
